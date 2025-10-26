@@ -108,7 +108,7 @@ app.get('/ticket', maybeRequireAuth, async (req, res) => {
         <div class="row">
           <form class="form" method="POST" action="/tickets">
             <label class="label">Broj osobne/putovnice (max 20 znakova)</label>
-            <input class="input" name="personalId" maxlength="20" required placeholder="npr. AB123456" />
+            <input class="input" name="personalId" required placeholder="npr. AB123456" />
 
             <label class="label">Brojevi (6–10 u rasponu 1–45, odvojeni zarezom)</label>
             <input class="input" name="numbers" placeholder="1,2,3,4,5,6" required />
