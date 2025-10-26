@@ -180,7 +180,17 @@ app.post('/tickets', maybeRequireAuth, async (req, res) => {
     console.log('🎟️ Novi listić:', publicUrl);
     res.end(png);
   } catch (e) {
-    res.status(400).send(e?.message || 'Neispravni podaci.');
+    const msg =
+      e?.issues?.[0]?.message || e?.message || 'Neispravni podaci.';
+    res
+      .status(400)
+      .send(
+        `<html><body style="font-family:sans-serif">
+          <h2>Greška</h2>
+          <p>${msg}</p>
+          <p><a href="/ticket">Natrag na uplatu</a></p>
+        </body></html>`
+      );
   }
 });
 
