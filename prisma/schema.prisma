@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Round {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  isOpen    Boolean   @default(false)
+  tickets   Ticket[]
+  draw      Draw?
+}
+
+model Ticket {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  personalId String
+  numbersCsv String
+  roundId    Int
+  round      Round    @relation(fields: [roundId], references: [id])
+  userSub    String?
+}
+
+model Draw {
+  id        Int      @id @default(autoincrement())
+  numbers   String
+  createdAt DateTime @default(now())
+  roundId   Int      @unique
+  round     Round    @relation(fields: [roundId], references: [id])
+}
